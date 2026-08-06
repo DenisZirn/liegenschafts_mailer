@@ -25,8 +25,8 @@ Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekte
 ### Variante A: Button
 
 1. Klicke auf den Button **Open in HACS**.
-2. Wähle die Kategorie **Integration**.
-3. Lade die Integration herunter.
+2. Wähle die Kategorie **Benutzerdefiniertes Repository hinzufügen**.
+3. Klicke dann auf **Herunterladen**.
 4. Starte Home Assistant neu.
 5. Füge die Integration **Liegenschafts Mailer** über die Home-Assistant-Oberfläche hinzu.
 
