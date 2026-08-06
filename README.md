@@ -2,9 +2,9 @@
 
 Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekten und Zählerständen mit E-Mail-Versand, CSV-Export und PDF-Abrechnung.
 
-> Aktuelle Version: **0.8.15**
-
 [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZEltako&repository=liegenschafts_mailer&category=integration)
+
+Der Button öffnet immer dieses Repository in HACS. Er ist nicht an eine feste Versionsnummer gebunden. HACS installiert bzw. aktualisiert daraus die aktuell verfügbare veröffentlichte Version. Dafür muss bei neuen Versionen zusätzlich zum geänderten `manifest.json` ein passender GitHub-Tag oder GitHub-Release erstellt werden, zum Beispiel `v0.8.16`, `v0.8.17` usw.
 
 ## Funktionen
 
@@ -25,8 +25,8 @@ Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekte
 ### Variante A: Button
 
 1. Klicke auf den Button **Open in HACS**.
-2. Wähle die Kategorie **Benutzerdefiniertes Repository hinzufügen**.
-3. Klicke dann auf **Herunterladen**.
+2. Bestätige das Hinzufügen des benutzerdefinierten Repositorys.
+3. Klicke anschließend in HACS auf **Herunterladen**.
 4. Starte Home Assistant neu.
 5. Füge die Integration **Liegenschafts Mailer** über die Home-Assistant-Oberfläche hinzu.
 
@@ -157,14 +157,18 @@ data:
 
 ## Veröffentlichung / Releases
 
-Aktuelle Version: **v0.8.15**
+Für jede neue Version sollten diese Punkte zusammenpassen:
 
-Für HACS sollte optional ein GitHub-Release oder zumindest ein Git-Tag mit der Versionsnummer erstellt werden:
+1. `version` in `custom_components/liegenschafts_mailer/manifest.json` erhöhen.
+2. Änderungen nach `main` hochladen.
+3. GitHub-Tag oder GitHub-Release mit derselben Version erstellen, zum Beispiel:
 
-```bash
-git tag v0.8.15
-git push origin v0.8.15
-```
+   ```bash
+   git tag v0.8.16
+   git push origin v0.8.16
+   ```
+
+Der HACS-Button selbst bleibt unverändert und muss bei neuen Versionen nicht angepasst werden.
 
 ## Rechtlicher Hinweis
 
