@@ -155,20 +155,6 @@ data:
   price_kwh: "0.40"
 ```
 
-## Veröffentlichung / Releases
-
-Für jede neue Version sollten diese Punkte zusammenpassen:
-
-1. `version` in `custom_components/liegenschafts_mailer/manifest.json` erhöhen.
-2. Änderungen nach `main` hochladen.
-3. GitHub-Tag oder GitHub-Release mit derselben Version erstellen, zum Beispiel:
-
-   ```bash
-   git tag v0.8.16
-   git push origin v0.8.16
-   ```
-
-Der HACS-Button selbst bleibt unverändert und muss bei neuen Versionen nicht angepasst werden.
 
 ## Rechtlicher Hinweis
 
