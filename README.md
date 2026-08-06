@@ -4,7 +4,6 @@ Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekte
 
 [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZEltako&repository=liegenschafts_mailer&category=integration)
 
-Der Button öffnet immer dieses Repository in HACS. Er ist nicht an eine feste Versionsnummer gebunden. HACS installiert bzw. aktualisiert daraus die aktuell verfügbare veröffentlichte Version. Dafür muss bei neuen Versionen zusätzlich zum geänderten `manifest.json` ein passender GitHub-Tag oder GitHub-Release erstellt werden, zum Beispiel `v0.8.16`, `v0.8.17` usw.
 
 ## Funktionen
 
@@ -24,7 +23,7 @@ Der Button öffnet immer dieses Repository in HACS. Er ist nicht an eine feste V
 
 ### Variante A: Button
 
-1. Klicke auf den Button **Open in HACS**.
+1. Klicke auf den Button [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZEltako&repository=liegenschafts_mailer&category=integration).
 2. Bestätige das Hinzufügen des benutzerdefinierten Repositorys.
 3. Klicke anschließend in HACS auf **Herunterladen**.
 4. Starte Home Assistant neu.
