@@ -1,0 +1,571 @@
+{
+  "title": "Liegenschafts Mailer",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Liegenschafts Mailer einrichten",
+        "description": "Richtet den Mailversand für Zählerstände ein. Der Notify-Service muss z. B. notify.mail_ha heißen.",
+        "data": {
+          "name": "Name der Integration",
+          "property_type": "Nutzung / Objektart",
+          "notify_service": "Notify-Service",
+          "admin_password": "Verwaltungspasswort (optional)",
+          "admin_password_enabled": "Passwortschutz aktiv"
+        }
+      },
+      "init": {
+        "title": "Liegenschafts Mailer",
+        "data": {
+          "action": "Funktion"
+        },
+        "description": "Oben stehen Anzeige-, Rechnungs-, Testmail- und Versandfunktionen. Änderungen findest du gesammelt unter „Einstellungen öffnen / bearbeiten“."
+      },
+      "password": {
+        "title": "Passwort erforderlich",
+        "description": "Diese Funktion ändert Einstellungen. Bitte Verwaltungspasswort eingeben.",
+        "data": {
+          "password": "Passwort"
+        }
+      },
+      "global_options": {
+        "title": "Grundeinstellungen",
+        "data": {
+          "notify_service": "Notify-Service",
+          "property_type": "Nutzung / Objektart",
+          "object_label": "Objektbezeichnung Einzahl",
+          "object_label_plural": "Objektbezeichnung Mehrzahl",
+          "admin_password": "Verwaltungspasswort",
+          "admin_password_enabled": "Passwortschutz aktiv",
+          "default_kwh_price": "Standardpreis pro kWh (z. B. 0.40 oder 0,40)",
+          "Preis pro kWh": "Standardpreis pro kWh (z. B. 0.40 oder 0,40)",
+          "Home Assistant URL für PDF-Link": "Home Assistant URL für PDF-Link"
+        }
+      },
+      "management_options": {
+        "title": "Verwaltungsversand",
+        "description": "Wähle, welchen Verwaltungsbericht du einstellen möchtest.",
+        "data": {
+          "management_action": "Einstellbereich"
+        }
+      },
+      "list_berths": {
+        "title": "Übersicht / Tabelle",
+        "description": "{berth_table}",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "add_berth": {
+        "title": "Objekt hinzufügen",
+        "data": {
+          "berth_id": "Objekt-ID",
+          "name": "Anzeigename",
+          "tenant_salutation": "Anrede",
+          "tenant_name": "Mietername",
+          "email": "Mieter-E-Mail-Adresse (optional)",
+          "meter_sensor": "Zähler-Sensor",
+          "interval": "Versandintervall",
+          "send_time": "Versandzeit",
+          "weekday": "Wochentag bei wöchentlichem Versand",
+          "monthday": "Monatstag",
+          "month": "Monat bei jährlichem Versand",
+          "enabled": "Aktiviert",
+          "rental_type": "Nutzungsart"
+        }
+      },
+      "edit_berth": {
+        "title": "Objekt bearbeiten",
+        "data": {
+          "berth_id": "Objekt auswählen"
+        }
+      },
+      "edit_berth_data": {
+        "title": "Objektdaten bearbeiten",
+        "data": {
+          "berth_id": "Objekt-ID",
+          "name": "Anzeigename",
+          "tenant_salutation": "Anrede",
+          "tenant_name": "Mietername",
+          "email": "Mieter-E-Mail-Adresse (optional)",
+          "meter_sensor": "Zähler-Sensor",
+          "interval": "Versandintervall",
+          "send_time": "Versandzeit",
+          "weekday": "Wochentag bei wöchentlichem Versand",
+          "monthday": "Monatstag",
+          "month": "Monat bei jährlichem Versand",
+          "enabled": "Aktiviert",
+          "rental_type": "Nutzungsart"
+        }
+      },
+      "remove_object": {
+        "title": "Objekt löschen",
+        "data": {
+          "berth_id": "Objekt auswählen"
+        }
+      },
+      "test_mail": {
+        "title": "Testmail an beliebige Adresse",
+        "data": {
+          "email": "E-Mail-Adresse"
+        }
+      },
+      "test_berth_mail": {
+        "title": "Testmail an Objekt-Empfänger",
+        "data": {
+          "berth_id": "Objekt auswählen"
+        }
+      },
+      "send_management_report": {
+        "title": "Verwaltungsliste jetzt senden",
+        "description": "Sendet jetzt eine Mail mit allen aktuellen Zählerständen an die hinterlegte Verwaltungsmail-Adresse.",
+        "data": {
+          "send_now": "Jetzt senden"
+        }
+      },
+      "test_mail_done": {
+        "title": "Testmail wurde gesendet",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "test_berth_mail_done": {
+        "title": "Objekt-Testmail wurde gesendet",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "management_report_done": {
+        "title": "Verwaltungsliste wurde gesendet",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "no_berths": {
+        "title": "Keine Objekte vorhanden",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "management_default": {
+        "title": "Standard-Verwaltungsmail",
+        "description": "Diese Adresse wird für Monats-, Quartals- und Jahresberichte verwendet.",
+        "data": {
+          "management_default_email": "Standard-Verwaltungsmail-Adresse"
+        }
+      },
+      "management_monthly": {
+        "title": "Monatsbericht",
+        "data": {
+          "management_monthly_enabled": "Monatsbericht aktiv",
+          "management_monthly_send_time": "Versandzeit",
+          "management_monthly_monthday": "Tag des Monats",
+          "send_test_now": "Monatsbericht jetzt testen"
+        }
+      },
+      "management_quarterly": {
+        "title": "Quartalsbericht",
+        "data": {
+          "management_quarterly_enabled": "Quartalsbericht aktiv",
+          "management_quarterly_send_time": "Versandzeit",
+          "management_quarterly_monthday": "Tag des Monats",
+          "management_quarterly_mode": "Quartalszeitpunkt",
+          "management_quarterly_q1": "Quartal 1 aktiv",
+          "management_quarterly_q2": "Quartal 2 aktiv",
+          "management_quarterly_q3": "Quartal 3 aktiv",
+          "management_quarterly_q4": "Quartal 4 aktiv",
+          "test_quarter": "Test-Quartal",
+          "send_test_now": "Quartalsbericht jetzt testen"
+        }
+      },
+      "management_yearly": {
+        "title": "Jahresbericht",
+        "data": {
+          "management_yearly_enabled": "Jahresbericht aktiv",
+          "management_yearly_send_time": "Versandzeit",
+          "management_yearly_monthday": "Tag des Monats",
+          "management_yearly_month": "Monat",
+          "send_test_now": "Jahresbericht jetzt testen"
+        }
+      },
+      "manage_objects": {
+        "title": "Einstellungen öffnen / bearbeiten",
+        "description": "Hier befinden sich Grundeinstellungen, Verwaltungsversand sowie Objektverwaltung.",
+        "data": {
+          "admin_action": "Einstellungsfunktion"
+        }
+      },
+      "export_csv_current": {
+        "title": "CSV Datei (Zählerstände aktuell) per Email an Verwaltung senden",
+        "description": "Erstellt eine CSV-Datei mit allen aktuellen Zählerständen aller Objekte und sendet sie als Anhang an die Standard-Verwaltungsmail.",
+        "data": {
+          "export_now": "CSV Datei jetzt per Email senden"
+        }
+      },
+      "export_csv_done": {
+        "title": "CSV wurde per E-Mail gesendet",
+        "description": "Die CSV-Datei wurde erstellt und an die Standard-Verwaltungsmail gesendet.",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "export_csv_mail_done": {
+        "title": "CSV wurde per E-Mail gesendet",
+        "description": "Die CSV-Datei wurde erstellt und an die Standard-Verwaltungsmail gesendet.",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "csv_mail_done": {
+        "title": "CSV wurde per E-Mail gesendet",
+        "description": "Die CSV-Datei wurde erstellt und an die Standard-Verwaltungsmail gesendet.",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "csv_mail_sent_done": {
+        "title": "CSV wurde per E-Mail gesendet",
+        "description": "Die CSV-Datei wurde erstellt und als Anhang an die Standard-Verwaltungsmail gesendet.",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "billing_pdf": {
+        "title": "PDF-Rechnung erstellen",
+        "description": "Wähle zuerst, ob die Abrechnung für Kurzzeitmiete oder Langzeitmiete erstellt werden soll.",
+        "data": {
+          "scope": "Abrechnungsart",
+          "Abrechnungsart": "Abrechnungsart"
+        }
+      },
+      "billing_pdf_done": {
+        "title": "PDF-Rechnung wurde gesendet",
+        "description": "Die PDF-Abrechnung wurde erstellt und an die Standard-Verwaltungsmail gesendet.\n\nPDF öffnen: {pdf_url}\n\nHinweis: Falls der normale Klick zum Dashboard führt, bitte Rechtsklick oder lange drücken und „In neuem Tab öffnen“ wählen.",
+        "data": {
+          "back": "Zurück"
+        }
+      },
+      "billing_pdf_details": {
+        "title": "PDF-Rechnung erstellen",
+        "description": "Wähle das passende Objekt, Beginndatum und Enddatum über den Kalender. Der Preis pro kWh ist mit dem Wert aus den Grunddaten vorbelegt.",
+        "data": {
+          "object_id": "Objekt",
+          "start_date": "Beginndatum",
+          "end_date": "Enddatum",
+          "default_kwh_price": "Preis pro kWh (z. B. 0.40 oder 0,40)",
+          "Objekt": "Objekt",
+          "Beginndatum": "Beginndatum",
+          "Enddatum": "Enddatum",
+          "Preis pro kWh": "Preis pro kWh (z. B. 0.40 oder 0,40)"
+        }
+      },
+      "invoice_menu": {
+        "title": "Rechnung erstellen",
+        "description": "Wähle aus, ob eine PDF-Rechnung erstellt oder die aktuelle CSV-Datei an die Verwaltung gesendet werden soll.",
+        "data": {
+          "invoice_action": "Rechnungsfunktion"
+        }
+      },
+      "test_menu": {
+        "title": "Testmail",
+        "description": "Wähle aus, welche Testmail gesendet werden soll.",
+        "data": {
+          "test_action": "Testmail-Funktion"
+        }
+      }
+    },
+    "error": {
+      "billing_object_required": "Bitte ein Kurzzeitobjekt auswählen."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Liegenschafts Mailer",
+        "data": {
+          "action": "Funktion"
+        },
+        "description": "Oben stehen Anzeige-, Rechnungs-, Testmail- und Versandfunktionen. Änderungen findest du gesammelt unter „Einstellungen öffnen / bearbeiten“."
+      },
+      "password": {
+        "title": "Passwort erforderlich",
+        "description": "Diese Funktion ändert Einstellungen. Bitte Verwaltungspasswort eingeben.",
+        "data": {
+          "password": "Passwort"
+        }
+      },
+      "global_options": {
+        "title": "Grundeinstellungen",
+        "data": {
+          "notify_service": "Notify-Service",
+          "property_type": "Nutzung / Objektart",
+          "object_label": "Objektbezeichnung Einzahl",
+          "object_label_plural": "Objektbezeichnung Mehrzahl",
+          "admin_password": "Verwaltungspasswort",
+          "admin_password_enabled": "Passwortschutz aktiv",
+          "default_kwh_price": "Standardpreis pro kWh (z. B. 0.40 oder 0,40)",
+          "Preis pro kWh": "Standardpreis pro kWh (z. B. 0.40 oder 0,40)",
+          "Home Assistant URL für PDF-Link": "Home Assistant URL für PDF-Link"
+        }
+      },
+      "management_options": {
+        "title": "Verwaltungsversand",
+        "description": "Wähle, welchen Verwaltungsbericht du einstellen möchtest.",
+        "data": {
+          "management_action": "Einstellbereich"
+        }
+      },
+      "list_berths": {
+        "title": "Übersicht / Tabelle",
+        "description": "{berth_table}",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "add_berth": {
+        "title": "Objekt hinzufügen",
+        "data": {
+          "berth_id": "Objekt-ID",
+          "name": "Anzeigename",
+          "tenant_salutation": "Anrede",
+          "tenant_name": "Mietername",
+          "email": "Mieter-E-Mail-Adresse (optional)",
+          "meter_sensor": "Zähler-Sensor",
+          "interval": "Versandintervall",
+          "send_time": "Versandzeit",
+          "weekday": "Wochentag bei wöchentlichem Versand",
+          "monthday": "Monatstag",
+          "month": "Monat bei jährlichem Versand",
+          "enabled": "Aktiviert",
+          "rental_type": "Nutzungsart"
+        }
+      },
+      "edit_berth": {
+        "title": "Objekt bearbeiten",
+        "data": {
+          "berth_id": "Objekt auswählen"
+        }
+      },
+      "edit_berth_data": {
+        "title": "Objektdaten bearbeiten",
+        "data": {
+          "berth_id": "Objekt-ID",
+          "name": "Anzeigename",
+          "tenant_salutation": "Anrede",
+          "tenant_name": "Mietername",
+          "email": "Mieter-E-Mail-Adresse (optional)",
+          "meter_sensor": "Zähler-Sensor",
+          "interval": "Versandintervall",
+          "send_time": "Versandzeit",
+          "weekday": "Wochentag bei wöchentlichem Versand",
+          "monthday": "Monatstag",
+          "month": "Monat bei jährlichem Versand",
+          "enabled": "Aktiviert",
+          "rental_type": "Nutzungsart"
+        }
+      },
+      "remove_object": {
+        "title": "Objekt löschen",
+        "data": {
+          "berth_id": "Objekt auswählen"
+        }
+      },
+      "test_mail": {
+        "title": "Testmail an beliebige Adresse",
+        "data": {
+          "email": "E-Mail-Adresse"
+        }
+      },
+      "test_berth_mail": {
+        "title": "Testmail an Objekt-Empfänger",
+        "data": {
+          "berth_id": "Objekt auswählen"
+        }
+      },
+      "send_management_report": {
+        "title": "Verwaltungsliste jetzt senden",
+        "description": "Sendet jetzt eine Mail mit allen aktuellen Zählerständen an die hinterlegte Verwaltungsmail-Adresse.",
+        "data": {
+          "send_now": "Jetzt senden"
+        }
+      },
+      "test_mail_done": {
+        "title": "Testmail wurde gesendet",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "test_berth_mail_done": {
+        "title": "Objekt-Testmail wurde gesendet",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "management_report_done": {
+        "title": "Verwaltungsliste wurde gesendet",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "no_berths": {
+        "title": "Keine Objekte vorhanden",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "management_default": {
+        "title": "Standard-Verwaltungsmail",
+        "description": "Diese Adresse wird für Monats-, Quartals- und Jahresberichte verwendet.",
+        "data": {
+          "management_default_email": "Standard-Verwaltungsmail-Adresse"
+        }
+      },
+      "management_monthly": {
+        "title": "Monatsbericht",
+        "data": {
+          "management_monthly_enabled": "Monatsbericht aktiv",
+          "management_monthly_send_time": "Versandzeit",
+          "management_monthly_monthday": "Tag des Monats",
+          "send_test_now": "Monatsbericht jetzt testen"
+        }
+      },
+      "management_quarterly": {
+        "title": "Quartalsbericht",
+        "data": {
+          "management_quarterly_enabled": "Quartalsbericht aktiv",
+          "management_quarterly_send_time": "Versandzeit",
+          "management_quarterly_monthday": "Tag des Monats",
+          "management_quarterly_mode": "Quartalszeitpunkt",
+          "management_quarterly_q1": "Quartal 1 aktiv",
+          "management_quarterly_q2": "Quartal 2 aktiv",
+          "management_quarterly_q3": "Quartal 3 aktiv",
+          "management_quarterly_q4": "Quartal 4 aktiv",
+          "test_quarter": "Test-Quartal",
+          "send_test_now": "Quartalsbericht jetzt testen"
+        }
+      },
+      "management_yearly": {
+        "title": "Jahresbericht",
+        "data": {
+          "management_yearly_enabled": "Jahresbericht aktiv",
+          "management_yearly_send_time": "Versandzeit",
+          "management_yearly_monthday": "Tag des Monats",
+          "management_yearly_month": "Monat",
+          "send_test_now": "Jahresbericht jetzt testen"
+        }
+      },
+      "manage_objects": {
+        "title": "Einstellungen öffnen / bearbeiten",
+        "description": "Hier befinden sich Grundeinstellungen, Verwaltungsversand sowie Objektverwaltung.",
+        "data": {
+          "admin_action": "Einstellungsfunktion"
+        }
+      },
+      "export_csv_current": {
+        "title": "CSV Datei (Zählerstände aktuell) per Email an Verwaltung senden",
+        "description": "Erstellt eine CSV-Datei mit allen aktuellen Zählerständen aller Objekte und sendet sie als Anhang an die Standard-Verwaltungsmail.",
+        "data": {
+          "export_now": "CSV Datei jetzt per Email senden"
+        }
+      },
+      "export_csv_done": {
+        "title": "CSV wurde per E-Mail gesendet",
+        "description": "Die CSV-Datei wurde erstellt und an die Standard-Verwaltungsmail gesendet.",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "export_csv_mail_done": {
+        "title": "CSV wurde per E-Mail gesendet",
+        "description": "Die CSV-Datei wurde erstellt und an die Standard-Verwaltungsmail gesendet.",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "csv_mail_done": {
+        "title": "CSV wurde per E-Mail gesendet",
+        "description": "Die CSV-Datei wurde erstellt und an die Standard-Verwaltungsmail gesendet.",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "csv_mail_sent_done": {
+        "title": "CSV wurde per E-Mail gesendet",
+        "description": "Die CSV-Datei wurde erstellt und als Anhang an die Standard-Verwaltungsmail gesendet.",
+        "data": {
+          "back": "Zurück zur Verwaltung"
+        }
+      },
+      "billing_pdf": {
+        "title": "PDF-Rechnung erstellen",
+        "description": "Wähle zuerst, ob die Abrechnung für Kurzzeitmiete oder Langzeitmiete erstellt werden soll.",
+        "data": {
+          "scope": "Abrechnungsart",
+          "Abrechnungsart": "Abrechnungsart"
+        }
+      },
+      "billing_pdf_done": {
+        "title": "PDF-Rechnung wurde gesendet",
+        "description": "Die PDF-Abrechnung wurde erstellt und an die Standard-Verwaltungsmail gesendet.\n\nPDF öffnen: {pdf_url}\n\nHinweis: Falls der normale Klick zum Dashboard führt, bitte Rechtsklick oder lange drücken und „In neuem Tab öffnen“ wählen.",
+        "data": {
+          "back": "Zurück"
+        }
+      },
+      "billing_pdf_details": {
+        "title": "PDF-Rechnung erstellen",
+        "description": "Wähle das passende Objekt, Beginndatum und Enddatum über den Kalender. Der Preis pro kWh ist mit dem Wert aus den Grunddaten vorbelegt.",
+        "data": {
+          "object_id": "Objekt",
+          "start_date": "Beginndatum",
+          "end_date": "Enddatum",
+          "default_kwh_price": "Preis pro kWh (z. B. 0.40 oder 0,40)",
+          "Objekt": "Objekt",
+          "Beginndatum": "Beginndatum",
+          "Enddatum": "Enddatum",
+          "Preis pro kWh": "Preis pro kWh (z. B. 0.40 oder 0,40)"
+        }
+      },
+      "invoice_menu": {
+        "title": "Rechnung erstellen",
+        "description": "Wähle aus, ob eine PDF-Rechnung erstellt oder die aktuelle CSV-Datei an die Verwaltung gesendet werden soll.",
+        "data": {
+          "invoice_action": "Rechnungsfunktion"
+        }
+      },
+      "test_menu": {
+        "title": "Testmail",
+        "description": "Wähle aus, welche Testmail gesendet werden soll.",
+        "data": {
+          "test_action": "Testmail-Funktion"
+        }
+      }
+    },
+    "error": {
+      "invalid_password": "Das Passwort ist falsch.",
+      "invalid_email": "Ungültige E-Mail-Adresse.",
+      "invalid_rental_type": "Ungültige Nutzungsart.",
+      "invalid_sensor": "Bitte einen Sensor auswählen.",
+      "invalid_interval": "Ungültiges Intervall.",
+      "invalid_salutation": "Ungültige Anrede.",
+      "invalid_time": "Ungültige Uhrzeit. Erwartet wird HH:MM.",
+      "invalid_weekday": "Ungültiger Wochentag.",
+      "invalid_monthday": "Ungültiger Monatstag.",
+      "invalid_month": "Ungültiger Monat.",
+      "already_exists": "Diese Objekt-ID existiert bereits.",
+      "not_found": "Das Objekt wurde nicht gefunden.",
+      "send_failed": "Mail konnte nicht gesendet werden. Bitte Notify-Service und Empfängeradresse prüfen.",
+      "required": "Dieses Feld ist erforderlich.",
+      "at_least_one_quarter": "Wenn der Quartalsbericht aktiv ist, muss mindestens ein Quartal ausgewählt sein.",
+      "invalid_quarter_mode": "Ungültiger Quartalszeitpunkt.",
+      "management_email_missing": "Bitte zuerst die Standard-Verwaltungsmail-Adresse eintragen.",
+      "notify_service_missing": "Notify-Service wurde nicht gefunden. Bitte z. B. notify.mail_ha prüfen.",
+      "email_missing": "Für dieses Objekt ist keine Mieter-E-Mail-Adresse hinterlegt.",
+      "export_failed": "CSV konnte nicht per E-Mail gesendet werden. Bitte Standard-Verwaltungsmail und Notify-Service prüfen.",
+      "billing_failed": "Abrechnung konnte nicht erstellt oder gesendet werden.",
+      "billing_object_required": "Bitte ein Kurzzeitobjekt auswählen."
+    },
+    "abort": {
+      "csv_mail_sent": "CSV wurde per E-Mail gesendet.",
+      "csv_mail_failed": "CSV konnte nicht per E-Mail gesendet werden."
+    }
+  }
+}

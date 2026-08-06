@@ -1,0 +1,571 @@
+{
+  "title": "Property Mailer",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Property Mailer",
+        "description": "Sets up email delivery for meter readings. The notify service must be named e.g. notify.mail_ha.",
+        "data": {
+          "name": "Integration name",
+          "property_type": "Usage / object type",
+          "notify_service": "Notify service",
+          "admin_password": "Management password (optional)",
+          "admin_password_enabled": "Password protection active"
+        }
+      },
+      "init": {
+        "title": "Property Mailer",
+        "data": {
+          "action": "Function"
+        },
+        "description": "Display, billing, test mail, and sending functions are shown above. Changes are collected under “Open / edit settings”."
+      },
+      "password": {
+        "title": "Password required",
+        "description": "This function changes settings. Please enter the management password.",
+        "data": {
+          "password": "Password"
+        }
+      },
+      "global_options": {
+        "title": "Basic settings",
+        "data": {
+          "notify_service": "Notify service",
+          "property_type": "Usage / object type",
+          "object_label": "Object label singular",
+          "object_label_plural": "Object label plural",
+          "admin_password": "Administration password",
+          "admin_password_enabled": "Password protection active",
+          "default_kwh_price": "Default price per kWh (e.g. 0.40 or 0,40)",
+          "Preis pro kWh": "Default price per kWh (e.g. 0.40 or 0,40)",
+          "Home Assistant URL für PDF-Link": "Home Assistant URL for PDF link"
+        }
+      },
+      "management_options": {
+        "title": "Management reports",
+        "description": "Select which management report you want to configure.",
+        "data": {
+          "management_action": "Settings section"
+        }
+      },
+      "list_berths": {
+        "title": "Overview / table",
+        "description": "{berth_table}",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "add_berth": {
+        "title": "Add object",
+        "data": {
+          "berth_id": "Object ID",
+          "name": "Display name",
+          "tenant_salutation": "Salutation",
+          "tenant_name": "Tenant name",
+          "email": "Tenant email address (optional)",
+          "meter_sensor": "Meter sensor",
+          "interval": "Send interval",
+          "send_time": "Send time",
+          "weekday": "Weekday for weekly delivery",
+          "monthday": "Day of month",
+          "month": "Month for yearly delivery",
+          "enabled": "Enabled",
+          "rental_type": "Usage type"
+        }
+      },
+      "edit_berth": {
+        "title": "Edit object",
+        "data": {
+          "berth_id": "Select object"
+        }
+      },
+      "edit_berth_data": {
+        "title": "Edit object data",
+        "data": {
+          "berth_id": "Object ID",
+          "name": "Display name",
+          "tenant_salutation": "Salutation",
+          "tenant_name": "Tenant name",
+          "email": "Tenant email address (optional)",
+          "meter_sensor": "Meter sensor",
+          "interval": "Send interval",
+          "send_time": "Send time",
+          "weekday": "Weekday for weekly delivery",
+          "monthday": "Day of month",
+          "month": "Month for yearly delivery",
+          "enabled": "Enabled",
+          "rental_type": "Usage type"
+        }
+      },
+      "remove_object": {
+        "title": "Remove object",
+        "data": {
+          "berth_id": "Select object"
+        }
+      },
+      "test_mail": {
+        "title": "Test mail to any address",
+        "data": {
+          "email": "Email address"
+        }
+      },
+      "test_berth_mail": {
+        "title": "Test mail to object recipient",
+        "data": {
+          "berth_id": "Select object"
+        }
+      },
+      "send_management_report": {
+        "title": "Send management report now",
+        "description": "Sends a mail with all current meter readings to the configured management email address.",
+        "data": {
+          "send_now": "Send now"
+        }
+      },
+      "test_mail_done": {
+        "title": "Test mail was sent",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "test_berth_mail_done": {
+        "title": "Object test mail was sent",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "management_report_done": {
+        "title": "Management report was sent",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "no_berths": {
+        "title": "No objects available",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "management_default": {
+        "title": "Default management email",
+        "description": "This address is used for monthly, quarterly and yearly management reports.",
+        "data": {
+          "management_default_email": "Default management email address"
+        }
+      },
+      "management_monthly": {
+        "title": "Monthly report",
+        "data": {
+          "management_monthly_enabled": "Monthly report enabled",
+          "management_monthly_send_time": "Send time",
+          "management_monthly_monthday": "Day of month",
+          "send_test_now": "Send monthly test report now"
+        }
+      },
+      "management_quarterly": {
+        "title": "Quarterly report",
+        "data": {
+          "management_quarterly_enabled": "Quarterly report enabled",
+          "management_quarterly_send_time": "Send time",
+          "management_quarterly_monthday": "Day of month",
+          "management_quarterly_mode": "Quarter timing",
+          "management_quarterly_q1": "Quarter 1 active",
+          "management_quarterly_q2": "Quarter 2 active",
+          "management_quarterly_q3": "Quarter 3 active",
+          "management_quarterly_q4": "Quarter 4 active",
+          "test_quarter": "Test quarter",
+          "send_test_now": "Send quarterly test report now"
+        }
+      },
+      "management_yearly": {
+        "title": "Yearly report",
+        "data": {
+          "management_yearly_enabled": "Yearly report enabled",
+          "management_yearly_send_time": "Send time",
+          "management_yearly_monthday": "Day of month",
+          "management_yearly_month": "Month",
+          "send_test_now": "Send yearly test report now"
+        }
+      },
+      "manage_objects": {
+        "title": "Open / edit settings",
+        "description": "Basic settings, management mailing, and object management are collected here.",
+        "data": {
+          "admin_action": "Settings function"
+        }
+      },
+      "export_csv_current": {
+        "title": "CSV file (current meter readings) by email to management",
+        "description": "Creates a CSV file with all current meter readings and sends it as an attachment to the standard management email address.",
+        "data": {
+          "export_now": "Send CSV file by email now"
+        }
+      },
+      "export_csv_done": {
+        "title": "CSV was sent by email",
+        "description": "The CSV file was created and sent to the standard management email address.",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "export_csv_mail_done": {
+        "title": "CSV was sent by email",
+        "description": "The CSV file was created and sent to the standard management email address.",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "csv_mail_done": {
+        "title": "CSV was sent by email",
+        "description": "The CSV file was created and sent to the standard management email address.",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "csv_mail_sent_done": {
+        "title": "CSV was sent by email",
+        "description": "The CSV file was created and sent as an attachment to the default management email address.",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "billing_pdf": {
+        "title": "Create PDF invoice",
+        "description": "First choose whether the billing report is for short-term or long-term rent.",
+        "data": {
+          "scope": "Billing type",
+          "Abrechnungsart": "Billing type"
+        }
+      },
+      "billing_pdf_done": {
+        "title": "PDF invoice was sent",
+        "description": "The PDF billing report was created and sent to the default management email.\n\nOpen PDF: {pdf_url}\n\nNote: If a normal click opens the dashboard, right-click or long-press and choose “open in new tab”.",
+        "data": {
+          "back": "Back"
+        }
+      },
+      "billing_pdf_details": {
+        "title": "Create PDF invoice",
+        "description": "Select the object, start date and end date using the calendar. The price per kWh is prefilled from the basic settings.",
+        "data": {
+          "object_id": "Object",
+          "start_date": "Start date",
+          "end_date": "End date",
+          "default_kwh_price": "Price per kWh (e.g. 0.40)",
+          "Objekt": "Object",
+          "Beginndatum": "Start date",
+          "Enddatum": "End date",
+          "Preis pro kWh": "Price per kWh (e.g. 0.40)"
+        }
+      },
+      "invoice_menu": {
+        "title": "Create invoice",
+        "description": "Choose whether to create a PDF invoice or send the current CSV file to management.",
+        "data": {
+          "invoice_action": "Invoice function"
+        }
+      },
+      "test_menu": {
+        "title": "Test mail",
+        "description": "Choose which test mail should be sent.",
+        "data": {
+          "test_action": "Test mail function"
+        }
+      }
+    },
+    "error": {
+      "billing_object_required": "Please select a short-term object."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Property Mailer",
+        "data": {
+          "action": "Function"
+        },
+        "description": "Display, billing, test mail, and sending functions are shown above. Changes are collected under “Open / edit settings”."
+      },
+      "password": {
+        "title": "Password required",
+        "description": "This function changes settings. Please enter the management password.",
+        "data": {
+          "password": "Password"
+        }
+      },
+      "global_options": {
+        "title": "Basic settings",
+        "data": {
+          "notify_service": "Notify service",
+          "property_type": "Usage / object type",
+          "object_label": "Object label singular",
+          "object_label_plural": "Object label plural",
+          "admin_password": "Administration password",
+          "admin_password_enabled": "Password protection active",
+          "default_kwh_price": "Default price per kWh (e.g. 0.40 or 0,40)",
+          "Preis pro kWh": "Default price per kWh (e.g. 0.40 or 0,40)",
+          "Home Assistant URL für PDF-Link": "Home Assistant URL for PDF link"
+        }
+      },
+      "management_options": {
+        "title": "Management reports",
+        "description": "Select which management report you want to configure.",
+        "data": {
+          "management_action": "Settings section"
+        }
+      },
+      "list_berths": {
+        "title": "Overview / table",
+        "description": "{berth_table}",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "add_berth": {
+        "title": "Add object",
+        "data": {
+          "berth_id": "Object ID",
+          "name": "Display name",
+          "tenant_salutation": "Salutation",
+          "tenant_name": "Tenant name",
+          "email": "Tenant email address (optional)",
+          "meter_sensor": "Meter sensor",
+          "interval": "Send interval",
+          "send_time": "Send time",
+          "weekday": "Weekday for weekly delivery",
+          "monthday": "Day of month",
+          "month": "Month for yearly delivery",
+          "enabled": "Enabled",
+          "rental_type": "Usage type"
+        }
+      },
+      "edit_berth": {
+        "title": "Edit object",
+        "data": {
+          "berth_id": "Select object"
+        }
+      },
+      "edit_berth_data": {
+        "title": "Edit object data",
+        "data": {
+          "berth_id": "Object ID",
+          "name": "Display name",
+          "tenant_salutation": "Salutation",
+          "tenant_name": "Tenant name",
+          "email": "Tenant email address (optional)",
+          "meter_sensor": "Meter sensor",
+          "interval": "Send interval",
+          "send_time": "Send time",
+          "weekday": "Weekday for weekly delivery",
+          "monthday": "Day of month",
+          "month": "Month for yearly delivery",
+          "enabled": "Enabled",
+          "rental_type": "Usage type"
+        }
+      },
+      "remove_object": {
+        "title": "Remove object",
+        "data": {
+          "berth_id": "Select object"
+        }
+      },
+      "test_mail": {
+        "title": "Test mail to any address",
+        "data": {
+          "email": "Email address"
+        }
+      },
+      "test_berth_mail": {
+        "title": "Test mail to object recipient",
+        "data": {
+          "berth_id": "Select object"
+        }
+      },
+      "send_management_report": {
+        "title": "Send management report now",
+        "description": "Sends a mail with all current meter readings to the configured management email address.",
+        "data": {
+          "send_now": "Send now"
+        }
+      },
+      "test_mail_done": {
+        "title": "Test mail was sent",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "test_berth_mail_done": {
+        "title": "Object test mail was sent",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "management_report_done": {
+        "title": "Management report was sent",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "no_berths": {
+        "title": "No objects available",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "management_default": {
+        "title": "Default management email",
+        "description": "This address is used for monthly, quarterly and yearly management reports.",
+        "data": {
+          "management_default_email": "Default management email address"
+        }
+      },
+      "management_monthly": {
+        "title": "Monthly report",
+        "data": {
+          "management_monthly_enabled": "Monthly report enabled",
+          "management_monthly_send_time": "Send time",
+          "management_monthly_monthday": "Day of month",
+          "send_test_now": "Send monthly test report now"
+        }
+      },
+      "management_quarterly": {
+        "title": "Quarterly report",
+        "data": {
+          "management_quarterly_enabled": "Quarterly report enabled",
+          "management_quarterly_send_time": "Send time",
+          "management_quarterly_monthday": "Day of month",
+          "management_quarterly_mode": "Quarter timing",
+          "management_quarterly_q1": "Quarter 1 active",
+          "management_quarterly_q2": "Quarter 2 active",
+          "management_quarterly_q3": "Quarter 3 active",
+          "management_quarterly_q4": "Quarter 4 active",
+          "test_quarter": "Test quarter",
+          "send_test_now": "Send quarterly test report now"
+        }
+      },
+      "management_yearly": {
+        "title": "Yearly report",
+        "data": {
+          "management_yearly_enabled": "Yearly report enabled",
+          "management_yearly_send_time": "Send time",
+          "management_yearly_monthday": "Day of month",
+          "management_yearly_month": "Month",
+          "send_test_now": "Send yearly test report now"
+        }
+      },
+      "manage_objects": {
+        "title": "Open / edit settings",
+        "description": "Basic settings, management mailing, and object management are collected here.",
+        "data": {
+          "admin_action": "Settings function"
+        }
+      },
+      "export_csv_current": {
+        "title": "CSV file (current meter readings) by email to management",
+        "description": "Creates a CSV file with all current meter readings and sends it as an attachment to the standard management email address.",
+        "data": {
+          "export_now": "Send CSV file by email now"
+        }
+      },
+      "export_csv_done": {
+        "title": "CSV was sent by email",
+        "description": "The CSV file was created and sent to the standard management email address.",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "export_csv_mail_done": {
+        "title": "CSV was sent by email",
+        "description": "The CSV file was created and sent to the standard management email address.",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "csv_mail_done": {
+        "title": "CSV was sent by email",
+        "description": "The CSV file was created and sent to the standard management email address.",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "csv_mail_sent_done": {
+        "title": "CSV was sent by email",
+        "description": "The CSV file was created and sent as an attachment to the default management email.",
+        "data": {
+          "back": "Back to management"
+        }
+      },
+      "billing_pdf": {
+        "title": "Create PDF invoice",
+        "description": "First choose whether the billing report is for short-term or long-term rent.",
+        "data": {
+          "scope": "Billing type",
+          "Abrechnungsart": "Billing type"
+        }
+      },
+      "billing_pdf_done": {
+        "title": "PDF invoice was sent",
+        "description": "The PDF billing report was created and sent to the default management email.\n\nOpen PDF: {pdf_url}\n\nNote: If a normal click opens the dashboard, right-click or long-press and choose “open in new tab”.",
+        "data": {
+          "back": "Back"
+        }
+      },
+      "billing_pdf_details": {
+        "title": "Create PDF invoice",
+        "description": "Select the object, start date and end date using the calendar. The price per kWh is prefilled from the basic settings.",
+        "data": {
+          "object_id": "Object",
+          "start_date": "Start date",
+          "end_date": "End date",
+          "default_kwh_price": "Price per kWh (e.g. 0.40)",
+          "Objekt": "Object",
+          "Beginndatum": "Start date",
+          "Enddatum": "End date",
+          "Preis pro kWh": "Price per kWh (e.g. 0.40)"
+        }
+      },
+      "invoice_menu": {
+        "title": "Create invoice",
+        "description": "Choose whether to create a PDF invoice or send the current CSV file to management.",
+        "data": {
+          "invoice_action": "Invoice function"
+        }
+      },
+      "test_menu": {
+        "title": "Test mail",
+        "description": "Choose which test mail should be sent.",
+        "data": {
+          "test_action": "Test mail function"
+        }
+      }
+    },
+    "error": {
+      "invalid_password": "The password is wrong.",
+      "invalid_email": "Invalid email address.",
+      "invalid_rental_type": "Invalid usage type.",
+      "invalid_sensor": "Please select a sensor.",
+      "invalid_interval": "Invalid interval.",
+      "invalid_salutation": "Invalid salutation.",
+      "invalid_time": "Invalid time. Expected HH:MM.",
+      "invalid_weekday": "Invalid weekday.",
+      "invalid_monthday": "Invalid day of month.",
+      "invalid_month": "Invalid month.",
+      "already_exists": "This object ID already exists.",
+      "not_found": "The object was not found.",
+      "send_failed": "Mail could not be sent. Please check notify service and recipient address.",
+      "required": "This field is required.",
+      "at_least_one_quarter": "When the quarterly report is enabled, at least one quarter must be selected.",
+      "invalid_quarter_mode": "Invalid quarter timing.",
+      "management_email_missing": "Please configure the default management email address first.",
+      "notify_service_missing": "Notify service was not found. Please check e.g. notify.mail_ha.",
+      "email_missing": "No tenant email address is configured for this object.",
+      "export_failed": "CSV could not be sent by email. Please check the standard management email address and notify service.",
+      "billing_failed": "Billing report could not be created or sent.",
+      "billing_object_required": "Please select a short-term object."
+    },
+    "abort": {
+      "csv_mail_sent": "CSV was sent by email.",
+      "csv_mail_failed": "CSV could not be sent by email."
+    }
+  }
+}

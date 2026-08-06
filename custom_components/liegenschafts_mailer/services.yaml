@@ -1,0 +1,183 @@
+add_update_object:
+  name: Objekt hinzufügen oder ändern
+  description: Fügt ein Objekt hinzu oder ändert ein vorhandenes Objekt anhand der Objekt-ID.
+  fields:
+    object_id:
+      name: Objekt-ID
+      required: true
+      selector:
+        text:
+    name:
+      name: Anzeigename
+      required: true
+      selector:
+        text:
+    tenant_salutation:
+      name: Anrede
+      required: false
+      default: mr
+      selector:
+        select:
+          options:
+            - label: Herr
+              value: mr
+            - label: Frau
+              value: ms
+    tenant_name:
+      name: Mietername
+      required: true
+      selector:
+        text:
+    email:
+      name: E-Mail-Adresse
+      required: false
+      selector:
+        text:
+    rental_type:
+      name: Nutzungsart
+      description: Dauermiete oder Kurzzeit.
+      required: false
+      default: permanent
+      selector:
+        select:
+          options:
+            - label: Dauermiete
+              value: permanent
+            - label: Kurzzeit
+              value: short_term
+    meter_sensor:
+      name: Zähler-Sensor
+      required: true
+      selector:
+        entity:
+          domain: sensor
+    interval:
+      name: Versandintervall
+      required: true
+      selector:
+        select:
+          options:
+            - daily
+            - weekly
+            - monthly
+            - quarterly
+            - yearly
+    send_time:
+      name: Versandzeit
+      required: true
+      selector:
+        time:
+    weekday:
+      name: Wochentag
+      selector:
+        number:
+          min: 1
+          max: 7
+          mode: box
+    monthday:
+      name: Monatstag
+      selector:
+        number:
+          min: 1
+          max: 31
+          mode: box
+    month:
+      name: Monat bei jährlichem Versand
+      selector:
+        number:
+          min: 1
+          max: 12
+          mode: box
+    enabled:
+      name: Aktiviert
+      selector:
+        boolean:
+
+remove_object:
+  name: Objekt löschen
+  description: Löscht ein Objekt anhand der Objekt-ID.
+  fields:
+    object_id:
+      name: Objekt-ID
+      required: true
+      selector:
+        text:
+
+send_object_now:
+  name: Jetzt an Objekt senden
+  description: Sendet den aktuellen Zählerstand sofort an die im Objekt hinterlegte E-Mail-Adresse.
+  fields:
+    object_id:
+      name: Objekt-ID
+      required: true
+      selector:
+        text:
+
+send_all_now:
+  name: Jetzt an alle aktiven Objekte senden
+  description: Sendet die aktuellen Zählerstände sofort an alle aktivierten Objekt-Empfänger.
+  fields: {}
+
+send_test_mail:
+  name: Testmail senden
+  description: Sendet eine Testmail an eine frei angegebene E-Mail-Adresse.
+  fields:
+    email:
+      name: E-Mail-Adresse
+      required: true
+      selector:
+        text:
+
+send_management_report_now:
+  name: Verwaltungsliste jetzt senden
+  description: Sendet eine zentrale Liste aller Objekt-Zählerstände an die Verwaltungsmail-Adresse.
+  fields: {}
+
+export_current_csv:
+  name: CSV Datei (Zählerstände aktuell) per Email an Verwaltung senden
+  description: Erstellt eine CSV-Datei mit allen aktuellen Objekt-Zählerständen und sendet sie an die Standard-Verwaltungsmail.
+  fields: {}
+
+
+send_csv_to_management:
+  name: CSV Datei (Zählerstände aktuell) per Email an Verwaltung senden
+  description: Erstellt eine CSV-Datei mit allen aktuellen Objekt-Zählerständen und sendet sie an die Standard-Verwaltungsmail.
+  fields: {}
+
+send_billing_pdf_to_management:
+  name: PDF-Rechnung per E-Mail an Verwaltung senden
+  description: Erstellt eine PDF-Rechnung mit Verbrauchsdifferenz für einen Zeitraum und sendet sie an die Standard-Verwaltungsmail.
+  fields:
+    start_date:
+      name: Beginndatum
+      required: true
+      selector:
+        text:
+    end_date:
+      name: Enddatum
+      required: true
+      selector:
+        text:
+    price_kwh:
+      name: Preis pro kWh (z. B. 0.40)
+      required: false
+      selector:
+        text:
+    scope:
+      name: Abrechnungsart
+      description: Kurzzeitmiete oder Langzeitmiete.
+      required: false
+      default: short_term
+      selector:
+        select:
+          options:
+            - label: Kurzzeitmiete
+              value: short_term
+            - label: Langzeitmiete
+              value: long_term
+    object_id:
+      name: Objekt-ID
+      description: Objekt-ID des ausgewählten Objekts.
+      required: false
+      selector:
+        text:

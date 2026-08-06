@@ -1,0 +1,65 @@
+type: vertical-stack
+cards:
+  - type: entities
+    show_header_toggle: false
+    entities:
+      - type: call-service
+        name: CSV an Verwaltung senden
+        icon: mdi:email-fast-outline
+        action_name: Senden
+        service: liegenschafts_mailer.send_csv_to_management
+    card_mod:
+      style: |
+        ha-card {
+          max-width: 360px;
+          background: rgba(33, 150, 243, 0.10);
+          border: 1px solid rgba(33, 150, 243, 0.75);
+          border-radius: 12px;
+          box-shadow: none;
+          margin-bottom: 10px;
+        }
+
+  - type: markdown
+    title: Liegenschafts Mailer
+    content: |
+      {% set sensor = 'sensor.liegenschafts_mailer_objekte' %}
+      {% set rows = state_attr(sensor, 'berths') or state_attr(sensor, 'objects') or [] %}
+
+      **[⚙ Verwaltung öffnen / bearbeiten](/config/integrations/integration/liegenschafts_mailer)**
+
+      **Angelegte Objekte:** {{ rows | count }}
+
+      {% set ns = namespace(lines=[
+      '| Objekt | Mieter | Nutzungsart | E-Mail | Versand aktiv | Versandzeit | Intervall des Versands | aktueller Zählerstand kWh | Zählerstandsverlauf | Leistungsverlauf in W | Letzte Abrechnung |',
+      '|---|---|---|---|---|---|---|---:|---|---|---|'
+      ]) %}
+
+      {% for r in rows %}
+      {% set meter = r.zaehler_sensor if r.zaehler_sensor is defined and r.zaehler_sensor else r.meter_sensor %}
+      {% set power = meter | regex_replace('_zaehlerstand$', '_aktuelle_leistung') %}
+      {% set value = states(meter) %}
+      {% set meter_history_link = '/history?entity_id=' ~ meter %}
+      {% set power_history_link = '/history?entity_id=' ~ power %}
+
+      {% set objekt = r.name if r.name is defined and r.name else (r.liegeplatz if r.liegeplatz is defined and r.liegeplatz else r.objekt) %}
+      {% set mieter = r.mieter if r.mieter is defined and r.mieter else r.tenant_name %}
+      {% set nutzungsart = r.nutzungsart if r.nutzungsart is defined else ('Kurzzeit' if r.rental_type == 'short_term' else 'Dauermiete') %}
+      {% set email = r.email if r.email is defined and r.email else '' %}
+      {% set aktiv = r.aktiv if r.aktiv is defined else r.enabled %}
+      {% set versandzeit = r.versandzeit if r.versandzeit is defined and r.versandzeit else r.send_time %}
+      {% set intervall = r.intervall if r.intervall is defined and r.intervall else r.interval %}
+      {% set pdf_url = r.letzte_abrechnung_url if r.letzte_abrechnung_url is defined and r.letzte_abrechnung_url else (r.last_billing_pdf_url if r.last_billing_pdf_url is defined else '') %}
+      {% set pdf_link = '[📄 PDF öffnen](' ~ pdf_url ~ ')' if pdf_url else '-' %}
+
+      {% set line = '| ' ~ objekt ~ ' | ' ~ mieter ~ ' | ' ~ nutzungsart ~ ' | ' ~ email ~ ' | ' ~ ('ja' if aktiv else 'nein') ~ ' | ' ~ versandzeit ~ ' | ' ~ intervall ~ ' | ' ~ value ~ ' | [Zählerstand](' ~ meter_history_link ~ ') | [Leistung](' ~ power_history_link ~ ') | ' ~ pdf_link ~ ' |' %}
+      {% set ns.lines = ns.lines + [line] %}
+      {% endfor %}
+
+      {{ ns.lines | join('\n') }}
+    card_mod:
+      style: |
+        ha-card {
+          background: transparent;
+          box-shadow: none;
+          border: none;
+        }
