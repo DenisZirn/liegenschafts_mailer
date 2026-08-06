@@ -1,9 +1,12 @@
+<p align="center">
+  <img src="custom_components/liegenschafts_mailer/logo.png" alt="Liegenschafts Mailer Logo" width="160">
+</p>
+
 # Liegenschafts Mailer
 
 Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekten und Zählerständen mit E-Mail-Versand, CSV-Export und PDF-Abrechnung.
 
 [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZEltako&repository=liegenschafts_mailer&category=integration)
-
 
 ## Funktionen
 
@@ -153,7 +156,6 @@ data:
   end_date: "2026-07-28"
   price_kwh: "0.40"
 ```
-
 
 ## Rechtlicher Hinweis
 
