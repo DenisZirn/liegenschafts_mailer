@@ -4,7 +4,7 @@ Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekte
 
 > Aktuelle Version: **0.8.15**
 
-[![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DEIN_GITHUB_NAME&repository=liegenschafts_mailer&category=integration)
+[![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZEltako&repository=liegenschafts_mailer&category=integration)
 
 ## Funktionen
 
@@ -24,22 +24,21 @@ Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekte
 
 ### Variante A: Button
 
-1. Ersetze in dieser README zuerst `DEIN_GITHUB_NAME` im HACS-Button durch deinen GitHub-Benutzernamen oder Organisationsnamen.
-2. Klicke auf den Button **Open in HACS**.
-3. Wähle die Kategorie **Integration**.
-4. Lade die Integration herunter.
-5. Starte Home Assistant neu.
-6. Füge die Integration **Liegenschafts Mailer** über die Home-Assistant-Oberfläche hinzu.
+1. Klicke auf den Button **Open in HACS**.
+2. Wähle die Kategorie **Integration**.
+3. Lade die Integration herunter.
+4. Starte Home Assistant neu.
+5. Füge die Integration **Liegenschafts Mailer** über die Home-Assistant-Oberfläche hinzu.
 
 ### Variante B: Manuell als HACS Custom Repository
 
 1. HACS öffnen.
 2. Drei-Punkte-Menü öffnen.
 3. **Custom repositories** auswählen.
-4. Repository-URL eintragen, zum Beispiel:
+4. Repository-URL eintragen:
 
    ```text
-   https://github.com/DEIN_GITHUB_NAME/liegenschafts_mailer
+   https://github.com/DenisZEltako/liegenschafts_mailer
    ```
 
 5. Kategorie **Integration** wählen.
@@ -156,22 +155,16 @@ data:
   price_kwh: "0.40"
 ```
 
-## Veröffentlichungs-Checkliste für GitHub
+## Veröffentlichung / Releases
 
-Vor der Veröffentlichung:
+Aktuelle Version: **v0.8.15**
 
-1. Neues öffentliches Repository `liegenschafts_mailer` auf GitHub erstellen.
-2. Alle Dateien aus diesem Paket in das Repository hochladen.
-3. In `README.md` den Platzhalter `DEIN_GITHUB_NAME` ersetzen.
-4. In `custom_components/liegenschafts_mailer/manifest.json` bei Bedarf `documentation` auf die echte GitHub-URL ändern.
-5. Git-Tag setzen, zum Beispiel:
+Für HACS sollte optional ein GitHub-Release oder zumindest ein Git-Tag mit der Versionsnummer erstellt werden:
 
-   ```bash
-   git tag v0.8.15
-   git push origin v0.8.15
-   ```
-
-6. Optional eine GitHub-Release für `v0.8.15` erstellen.
+```bash
+git tag v0.8.15
+git push origin v0.8.15
+```
 
 ## Rechtlicher Hinweis
 
