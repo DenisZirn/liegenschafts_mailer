@@ -1091,7 +1091,7 @@ def _write_billing_pdf(path: str, *, title: str, meta_lines: list[str], rows: li
                 ty -= 14
             hint_y = 62
             text_at(margin_x, hint_y, 8, "Hinweis: Die Abrechnung nutzt bevorzugt Tages-/Langzeitwerte der kWh-Zählerstände.")
-            text_at(margin_x, hint_y - 12, 8, "Interne Sensor-IDs werden in dieser Abrechnung bewusst nicht angezeigt.")
+            
 
         text_at(510, 30, 8, f"Seite {page_idx} von {len(pages)}")
 
