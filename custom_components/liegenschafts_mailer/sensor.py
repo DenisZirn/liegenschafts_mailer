@@ -47,6 +47,7 @@ from .const import (
     INTERVAL_YEARLY,
     PROPERTY_TYPE_DEFAULTS,
 )
+from .storage import get_objects
 
 INTERVAL_LABELS = {
     INTERVAL_DAILY: "täglich",
@@ -71,7 +72,7 @@ def _property_defaults(options: dict[str, Any]) -> tuple[str, str, str]:
 def _entry_options(entry: ConfigEntry) -> dict[str, Any]:
     options = dict(entry.options or {})
     options.setdefault(CONF_NOTIFY_SERVICE, entry.data.get(CONF_NOTIFY_SERVICE, DEFAULT_NOTIFY_SERVICE))
-    options.setdefault(CONF_BERTHS, [])
+    options[CONF_BERTHS] = get_objects(entry)
     options.setdefault(CONF_PROPERTY_TYPE, entry.data.get(CONF_PROPERTY_TYPE, DEFAULT_PROPERTY_TYPE))
     _, single, plural = _property_defaults(options)
     options.setdefault(CONF_OBJECT_LABEL, single)
@@ -213,9 +214,9 @@ class LiegenschaftsMailerSummarySensor(SensorEntity):
             "management_month": options.get(CONF_MANAGEMENT_MONTH, 1),
             "last_management_report_at": options.get("last_management_report_at", ""),
             "count": len(rows),
-            "berths": rows,
+            # Keep one canonical list only. The bundled dashboard already falls
+            # back from the old "berths" name to "objects".
             "objects": rows,
-            "table": _markdown_table(self._entry, rows),
         }
 
 
@@ -289,3 +290,4 @@ class LiegenschaftsMailerObjectSensor(SensorEntity):
             "letzte_abrechnung_bis": berth.get(CONF_LAST_BILLING_END_DATE, ""),
             "last_billing_pdf_url": berth.get(CONF_LAST_BILLING_PDF_URL, ""),
         }
+

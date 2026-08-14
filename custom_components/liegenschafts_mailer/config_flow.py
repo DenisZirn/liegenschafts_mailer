@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import re
+from copy import deepcopy
 from datetime import date, timedelta
 from typing import Any
 
@@ -91,6 +92,7 @@ from .const import (
     TENANT_SALUTATION_MR,
     TENANT_SALUTATION_MS,
 )
+from .storage import async_save_objects, get_objects
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 TIME_RE = re.compile(r"^([01]\d|2[0-3]):[0-5]\d$")
@@ -284,10 +286,10 @@ def _berths_markdown_table(options: dict[str, Any]) -> str:
 
 
 def _entry_options(config_entry) -> dict[str, Any]:
-    options = dict(config_entry.options or {})
+    options = deepcopy(dict(config_entry.options or {}))
     options.setdefault(CONF_NOTIFY_SERVICE, config_entry.data.get(CONF_NOTIFY_SERVICE, DEFAULT_NOTIFY_SERVICE))
     options.setdefault(CONF_SEND_MODE, SEND_MODE_TARGET)
-    options.setdefault(CONF_BERTHS, [])
+    options[CONF_BERTHS] = get_objects(config_entry)
     legacy_password = str(config_entry.data.get(CONF_ADMIN_PASSWORD, "") or "").strip()
     option_password = str(options.get(CONF_ADMIN_PASSWORD, "") or "").strip()
     raw_enabled = options.get(CONF_ADMIN_PASSWORD_ENABLED, config_entry.data.get(CONF_ADMIN_PASSWORD_ENABLED, None))
@@ -561,13 +563,28 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
         return _entry_options(self._config_entry)
 
     def _save_options(self, options: dict[str, Any]):
-        return self.async_create_entry(title="", data=options)
+        persistent_options = deepcopy(options)
+        persistent_options.pop(CONF_BERTHS, None)
+        return self.async_create_entry(title="", data=persistent_options)
 
-    def _update_options_keep_open(self, options: dict[str, Any]) -> None:
-        self.hass.config_entries.async_update_entry(self._config_entry, options=options)
-        # Reload the integration after object/admin changes so sensors and dashboard
-        # attributes are refreshed immediately without a manual reload.
-        self.hass.async_create_task(self.hass.config_entries.async_reload(self._config_entry.entry_id))
+    async def _update_options_keep_open(self, options: dict[str, Any]) -> None:
+        """Persist objects separately and perform at most one integration reload."""
+        objects = deepcopy(options.get(CONF_BERTHS, get_objects(self._config_entry)))
+        objects_changed = objects != get_objects(self._config_entry)
+        if objects_changed:
+            await async_save_objects(self._config_entry, objects)
+
+        persistent_options = deepcopy(options)
+        persistent_options.pop(CONF_BERTHS, None)
+        options_changed = persistent_options != dict(self._config_entry.options or {})
+        if options_changed:
+            # The registered update listener performs the single required reload.
+            self.hass.config_entries.async_update_entry(
+                self._config_entry, options=persistent_options
+            )
+        elif objects_changed:
+            # Store-only changes do not trigger a config-entry update listener.
+            await self.hass.config_entries.async_reload(self._config_entry.entry_id)
 
     async def _return_manage_objects(self):
         return await self.async_step_manage_objects()
@@ -772,7 +789,7 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
             data[CONF_ADMIN_PASSWORD] = admin_password if password_enabled else ""
             self.hass.config_entries.async_update_entry(self._config_entry, data=data)
             current.setdefault(CONF_BERTHS, [])
-            self._update_options_keep_open(current)
+            await self._update_options_keep_open(current)
             return await self.async_step_manage_objects()
         _, single, plural = _property_defaults(current)
         return self.async_show_form(
@@ -826,7 +843,7 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
             if not errors:
                 current[CONF_MANAGEMENT_DEFAULT_EMAIL] = email
                 current[CONF_MANAGEMENT_EMAIL] = email
-                self._update_options_keep_open(current)
+                await self._update_options_keep_open(current)
                 return await self.async_step_management_options()
         return self.async_show_form(
             step_id="management_default",
@@ -873,7 +890,7 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
                     except Exception:
                         errors["base"] = "send_failed"
                         return self.async_show_form(step_id="management_monthly", data_schema=self._management_monthly_schema(current), errors=errors)
-                self._update_options_keep_open(current)
+                await self._update_options_keep_open(current)
                 return await self.async_step_management_options()
         return self.async_show_form(step_id="management_monthly", data_schema=self._management_monthly_schema(current), errors=errors)
 
@@ -931,7 +948,7 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
                     except Exception:
                         errors["base"] = "send_failed"
                         return self.async_show_form(step_id="management_quarterly", data_schema=self._management_quarterly_schema(current), errors=errors)
-                self._update_options_keep_open(current)
+                await self._update_options_keep_open(current)
                 return await self.async_step_management_options()
         return self.async_show_form(step_id="management_quarterly", data_schema=self._management_quarterly_schema(current), errors=errors)
 
@@ -989,7 +1006,7 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
                     except Exception:
                         errors["base"] = "send_failed"
                         return self.async_show_form(step_id="management_yearly", data_schema=self._management_yearly_schema(current), errors=errors)
-                self._update_options_keep_open(current)
+                await self._update_options_keep_open(current)
                 return await self.async_step_management_options()
         return self.async_show_form(step_id="management_yearly", data_schema=self._management_yearly_schema(current), errors=errors)
 
@@ -1031,7 +1048,7 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
             if not errors:
                 options[CONF_BERTHS].append(berth)
                 options[CONF_BERTHS].sort(key=lambda item: _natural_sort_key(item.get("berth_id", "")))
-                self._update_options_keep_open(options)
+                await self._update_options_keep_open(options)
                 return await self.async_step_manage_objects()
             return self.async_show_form(step_id="add_berth", data_schema=_berth_schema(self.hass, user_input), errors=errors)
         return self.async_show_form(step_id="add_berth", data_schema=_berth_schema(self.hass, _default_new_berth(options)))
@@ -1060,7 +1077,7 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
                 options[CONF_BERTHS] = [b for b in options[CONF_BERTHS] if b.get("berth_id") != old_id]
                 options[CONF_BERTHS].append(berth)
                 options[CONF_BERTHS].sort(key=lambda item: _natural_sort_key(item.get("berth_id", "")))
-                self._update_options_keep_open(options)
+                await self._update_options_keep_open(options)
                 return await self.async_step_manage_objects()
             return self.async_show_form(step_id="edit_berth_data", data_schema=_berth_schema(self.hass, user_input, edit=True), errors=errors)
         return self.async_show_form(step_id="edit_berth_data", data_schema=_berth_schema(self.hass, existing, edit=True))
@@ -1072,7 +1089,7 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
         if user_input is not None:
             berth_id = str(user_input["berth_id"])
             options[CONF_BERTHS] = [b for b in options[CONF_BERTHS] if b.get("berth_id") != berth_id]
-            self._update_options_keep_open(options)
+            await self._update_options_keep_open(options)
             return await self.async_step_manage_objects()
         return self.async_show_form(step_id="remove_object", data_schema=self._berth_select_schema())
 
@@ -1279,3 +1296,4 @@ class LiegenschaftsMailerOptionsFlow(config_entries.OptionsFlow):
                 vol.Required("back", default=True): bool,
             }),
         )
+

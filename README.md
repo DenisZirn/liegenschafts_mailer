@@ -6,7 +6,9 @@
 
 Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekten und Zählerständen mit E-Mail-Versand, CSV-Export und PDF-Abrechnung.
 
-[![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZEltako&repository=liegenschafts_mailer&category=integration)
+> Aktuelle Version: **0.8.16**
+
+[![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZirn&repository=liegenschafts_mailer&category=integration)
 
 ## Funktionen
 
@@ -26,7 +28,7 @@ Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekte
 
 ### Variante A: Button
 
-1. Klicke auf den Button [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZEltako&repository=liegenschafts_mailer&category=integration)
+1. Klicke auf den Button [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DenisZirn&repository=liegenschafts_mailer&category=integration)
 2. Bestätige das Hinzufügen des benutzerdefinierten Repositorys.
 3. Klicke anschließend in HACS auf **Herunterladen**.
 4. Starte Home Assistant neu.
@@ -40,7 +42,7 @@ Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekte
 4. Repository-URL eintragen:
 
    ```text
-   https://github.com/DenisZEltako/liegenschafts_mailer
+   https://github.com/DenisZirn/liegenschafts_mailer
    ```
 
 5. Kategorie **Integration** wählen.
@@ -65,6 +67,22 @@ Home-Assistant-Custom-Integration zur Verwaltung von Liegenschaften, Mietobjekte
 
 3. Home Assistant vollständig neu starten.
 4. Integration in Home Assistant hinzufügen.
+
+## Dauerhafte Objektspeicherung
+
+Ab Version 0.8.16 werden alle Objekte unabhängig von den Integrationsoptionen
+in einer eigenen, von Home Assistant verwalteten Store-Datei gespeichert:
+
+```text
+/config/.storage/liegenschafts_mailer
+```
+
+Beim ersten Start werden vorhandene Objekte aus Version 0.8.15 automatisch in
+diese Datei migriert. Danach ist diese Datei die alleinige Datenquelle für die
+Objektliste. Änderungen werden vor dem Reload vollständig und atomisch
+gespeichert. Die Datei darf nur bei vollständig gestopptem Home Assistant
+manuell ersetzt werden. Vor einem Austausch muss eine Sicherung der vorhandenen
+Datei angelegt werden.
 
 ## Wichtige Home-Assistant-Konfiguration
 

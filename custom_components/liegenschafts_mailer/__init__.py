@@ -106,6 +106,11 @@ from .const import (
     BILLING_SCOPE_ALL,
     BILLING_SCOPE_OBJECT,
 )
+from .storage import (
+    async_initialize_object_store,
+    async_save_objects,
+    get_objects,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -163,7 +168,7 @@ def _entry_options(entry: ConfigEntry) -> dict[str, Any]:
     options = deepcopy(dict(entry.options or {}))
     options.setdefault(CONF_NOTIFY_SERVICE, entry.data.get(CONF_NOTIFY_SERVICE, DEFAULT_NOTIFY_SERVICE))
     options.setdefault(CONF_SEND_MODE, SEND_MODE_TARGET)
-    options.setdefault(CONF_BERTHS, [])
+    options[CONF_BERTHS] = get_objects(entry)
     legacy_password = str(entry.data.get(CONF_ADMIN_PASSWORD, "") or "").strip()
     option_password = str(options.get(CONF_ADMIN_PASSWORD, "") or "").strip()
     raw_enabled = options.get(CONF_ADMIN_PASSWORD_ENABLED, entry.data.get(CONF_ADMIN_PASSWORD_ENABLED, None))
@@ -401,6 +406,7 @@ async def _async_update_listener(hass: HomeAssistant, entry: ConfigEntry) -> Non
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    await async_initialize_object_store(hass, entry)
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = {}
 
@@ -417,7 +423,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         berths.append(berth)
         berths.sort(key=lambda item: _natural_sort_key(item.get("berth_id", "")))
         options[CONF_BERTHS] = berths
-        hass.config_entries.async_update_entry(target_entry, options=options)
+        await async_save_objects(target_entry, berths)
         await hass.config_entries.async_reload(target_entry.entry_id)
         _LOGGER.info("Object %s saved", berth["berth_id"])
 
@@ -429,7 +435,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         options[CONF_BERTHS] = [b for b in options[CONF_BERTHS] if b.get("berth_id") != berth_id]
         if len(options[CONF_BERTHS]) == before:
             raise HomeAssistantError(f"Objekt {berth_id} wurde nicht gefunden.")
-        hass.config_entries.async_update_entry(target_entry, options=options)
+        await async_save_objects(target_entry, options[CONF_BERTHS])
         await hass.config_entries.async_reload(target_entry.entry_id)
         _LOGGER.info("Object %s removed", berth_id)
 
@@ -1256,7 +1262,7 @@ def _absolute_local_url(hass: HomeAssistant, entry: ConfigEntry, relative_url: s
     return (base_url + rel) if base_url else rel
 
 
-def _remember_last_billing_pdf(hass: HomeAssistant, entry: ConfigEntry, *, object_id: str, full_url: str, path: str, scope: str, start_date: str, end_date: str) -> None:
+async def _remember_last_billing_pdf(hass: HomeAssistant, entry: ConfigEntry, *, object_id: str, full_url: str, path: str, scope: str, start_date: str, end_date: str) -> None:
     """Store the last generated billing PDF on the matching object for dashboard links."""
     obj_id = str(object_id or "").strip()
     if not obj_id:
@@ -1277,8 +1283,7 @@ def _remember_last_billing_pdf(hass: HomeAssistant, entry: ConfigEntry, *, objec
             changed = True
         updated_berths.append(item)
     if changed:
-        options[CONF_BERTHS] = updated_berths
-        hass.config_entries.async_update_entry(entry, options=options)
+        await async_save_objects(entry, updated_berths)
 
 async def _async_create_billing_pdf_and_mail(hass: HomeAssistant, entry: ConfigEntry, *, start_date: str, end_date: str, price_kwh: Any = None, scope: str = BILLING_SCOPE_SHORT_TERM, object_id: str = "") -> str:
     options = _entry_options(entry)
@@ -1287,7 +1292,7 @@ async def _async_create_billing_pdf_and_mail(hass: HomeAssistant, entry: ConfigE
         raise HomeAssistantError("Keine gueltige Standard-Verwaltungsmail-Adresse hinterlegt.")
     path, url = await _async_create_billing_pdf(hass, entry, start_date=start_date, end_date=end_date, price_kwh=price_kwh, scope=scope, object_id=object_id)
     full_url = _absolute_local_url(hass, entry, url)
-    _remember_last_billing_pdf(hass, entry, object_id=object_id, full_url=full_url, path=path, scope=scope, start_date=start_date, end_date=end_date)
+    await _remember_last_billing_pdf(hass, entry, object_id=object_id, full_url=full_url, path=path, scope=scope, start_date=start_date, end_date=end_date)
     filename = os.path.basename(path)
     start_dt = _parse_date(start_date, end=False)
     end_dt = _parse_date(end_date, end=True)
@@ -1565,7 +1570,7 @@ async def _async_send_berth_mail(hass: HomeAssistant, entry: ConfigEntry, berth:
             item["last_sent_date"] = now.date().isoformat()
             item["last_sent_at"] = now.isoformat()
             break
-    hass.config_entries.async_update_entry(entry, options=options)
+    await async_save_objects(entry, options[CONF_BERTHS])
     _LOGGER.info("Sent meter mail for %s to %s", berth.get("berth_id"), berth.get(CONF_EMAIL))
 
 
@@ -1678,5 +1683,8 @@ async def _async_send_management_report(
     options[at_key] = now.isoformat()
     options["last_management_report_date"] = now.date().isoformat()
     options["last_management_report_at"] = now.isoformat()
-    hass.config_entries.async_update_entry(entry, options=options)
+    persistent_options = deepcopy(options)
+    persistent_options.pop(CONF_BERTHS, None)
+    hass.config_entries.async_update_entry(entry, options=persistent_options)
     _LOGGER.info("Sent %s management meter report to %s", interval, recipient)
+
