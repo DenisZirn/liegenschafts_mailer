@@ -77,12 +77,6 @@ in einer eigenen, von Home Assistant verwalteten Store-Datei gespeichert:
 /config/.storage/liegenschafts_mailer
 ```
 
-Beim ersten Start werden vorhandene Objekte aus Version 0.8.15 automatisch in
-diese Datei migriert. Danach ist diese Datei die alleinige Datenquelle für die
-Objektliste. Änderungen werden vor dem Reload vollständig und atomisch
-gespeichert. Die Datei darf nur bei vollständig gestopptem Home Assistant
-manuell ersetzt werden. Vor einem Austausch muss eine Sicherung der vorhandenen
-Datei angelegt werden.
 
 ## Wichtige Home-Assistant-Konfiguration
 
