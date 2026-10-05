@@ -612,7 +612,16 @@ async def _async_export_current_csv(hass: HomeAssistant, entry: ConfigEntry) -> 
             unit = ""
             status = "Sensor fehlt"
         else:
-            value = str(state.state)
+            raw_value = str(state.state)
+            if state.state in ("unknown", "unavailable", None):
+                value = raw_value
+            else:
+                try:
+                    float(raw_value)
+                except (TypeError, ValueError):
+                    value = raw_value
+                else:
+                    value = raw_value.replace(".", ",")
             unit = str(state.attributes.get("unit_of_measurement", "") or "")
             status = "ok" if state.state not in ("unknown", "unavailable", None) else str(state.state)
         rows.append({
